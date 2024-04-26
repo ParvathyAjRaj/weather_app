@@ -17,10 +17,10 @@ function UV({uvValue}){
     }
  return(
     <div className="UV">
-        <Card className="UVCard" style={{ width:60, height: 80,padding:1,border:"2px solid red", paddingBottom:5}}>
+        <Card className="UVCard" style={{ width:70, height: 90,padding:1,border:"2px solid red", paddingBottom:5}}>
             <img src="./assets/uv image.png" style={{width:20}}></img>
             <h5 style={{margin:1}}>UVI : {uvValue}</h5>
-            <p style={{color:"grey",fontSize:7,marginTop:0.01}}>{comments}</p>
+            <p style={{color:"grey",fontSize:9,marginTop:0.01}}>{comments}</p>
         </Card>
     </div>
     

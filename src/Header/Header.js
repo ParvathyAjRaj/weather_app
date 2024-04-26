@@ -1,7 +1,7 @@
 import React from "react";
-import UV from "../UV/UV";
+import UV from "../components/UV/UV";
 import "./Header.css";
-import Rain from "../Rain/Rain";
+import Rain from "../components/Rain/Rain";
 import { useState } from "react";
 
 function Header({uvValue , humidityValue}){
@@ -11,7 +11,7 @@ function Header({uvValue , humidityValue}){
         const newValue = !isDetailsVisible;
         setIsDetailsVisible(newValue);
     }
-    
+
     return(
         <div className="headerCard">
             {isDetailsVisible ? 
@@ -26,8 +26,7 @@ function Header({uvValue , humidityValue}){
                 <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
             </button>}            
         </div>
-    
-);
+    );
         
         
 }

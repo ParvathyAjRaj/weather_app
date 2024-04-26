@@ -1,16 +1,11 @@
-
- @media (max-width : 500px){
-  .App {
-    text-align: center;
-    background-color: skyblue;
-    min-height: 100vh;
-    padding: 20px;
-  }
- }
-
  .App {
-  text-align: center;
-  background-color: skyblue;
+  text-align: start;
+  /* light */
+  background-color: #182b3a;
+background-image: linear-gradient(315deg, #182b3a 0%, #20a4f3 74%);
+
+
+
   min-height: 100vh;
   padding: 20px;
 }

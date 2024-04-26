@@ -15,10 +15,10 @@ function Rain({humidityValue}){
     }
  return(
     <div className="Rain">
-        <Card className="UVCard" style={{ width:60,height:80 ,padding:1,paddingBottom:5}}>
+        <Card className="UVCard" style={{ width:70,height:90 ,padding:1,paddingBottom:5}}>
             <img src="./assets/rain_2.png" style={{width:20}}></img>
             <h5 style={{margin:1}}>{humidityValue}</h5>
-            <p style={{color:"grey",fontSize:7,marginTop:0.01}}>{comments}</p>
+            <p style={{color:"grey",fontSize:9,marginTop:0.01}}>{comments}</p>
         </Card>
     </div>
     
