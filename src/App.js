@@ -29,9 +29,10 @@ function App() {
         (position)=>{
           const lat = position.coords.latitude;
           const lon = position.coords.longitude;
+
           async function getCurrentLocationWeather(){
             const response = await axios.get(`${current_base_url}&q=${lat},${lon}&aqi=yes`);
-            console.log(response.data);
+            // console.log(response.data);
           
             const locationConditionText = response.data.current.condition.text;
             const locationConditionIcon = response.data.current.condition.icon; 

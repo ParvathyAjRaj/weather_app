@@ -58,7 +58,6 @@ function Content({locationName , locationRegion , localTime , locationCondition 
                 <span className="degree">°C</span>
                 <p className="tempRange"> ↑ 17°C ↓ 5°C</p>
             </div>
-            
             <h2>{locationCondition.text}</h2>
             <img src={locationCondition.icon}></img>
         </div>
