@@ -1,17 +1,40 @@
-.header{
-    display: inline;
+@media (max-width:500px){
+    .header{
+        display: inline-flex;
+        margin-left: 4vw;
+    }
+    
+    .headerCard{
+        display: flex;
+        justify-content: end;
+        margin-left: 10vw;
+    }
+    
+    .conditionIcon{
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        width: 5rem;
+        
+    }
 }
 
-.headerCard{
-    display: flex;
-    align-items: end;
-    justify-content: end;
+@media (min-width : 500px){
+    .header{
+        display: inline-flex;
+    }
+    
+    .headerCard{
+        display: flex;
+        justify-content: end;
+        margin-left: 65vw;
+    }
+    
+    .conditionIcon{
+        display: flex;
+        align-items: start;
+        justify-content: start;
+        width: 5rem;
+    }
 }
 
-.conditionIcon{
-    position:fixed;
-    display: flex;
-    align-items: start;
-    justify-content: start;
-    width: 5rem;
-}

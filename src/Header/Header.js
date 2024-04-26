@@ -14,11 +14,10 @@ function Header({uvValue , humidityValue , locationCondition}){
 
     return(
         <div className="header">
-            <img className="conditionIcon" src={locationCondition.icon}></img>
+            <img className="conditionIcon" src={locationCondition.icon}></img> 
             <div className="headerCard">
                 {isDetailsVisible ? 
                 <>
-                
                     <UV uvValue={uvValue}/>
                     <Rain humidityValue={humidityValue}/>
                     <button onClick={handleClickButton}>
@@ -26,12 +25,14 @@ function Header({uvValue , humidityValue , locationCondition}){
                     </button>
                 </> : 
                 <>
-                    <button onClick={handleClickButton} style={{marginTop:25}}>
+                    <button onClick={handleClickButton} style={{marginTop:25,marginLeft:150}}>
                         <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
                     </button>
                 </>
                 }            
             </div>
+            {/* <img className="conditionIcon" src={locationCondition.icon}></img> */}
+            {/* <p style={{color:"white"}}>{locationCondition.text}</p> */}
         </div>
         
     );

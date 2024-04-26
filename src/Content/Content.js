@@ -67,10 +67,10 @@ function Content(
                         null}
                 > ↑ {maxTemp}°C ↓ {minTemp}°C</p>
             </div>
-            <p style={{color:"white"}}>{locationCondition.text}</p>
-            
+            {/* <p style={{color:"white"}}>{locationCondition.text}</p> */}
+            <p style={{color:"white"}}>Maximum temperature reached upto {maxTemp}°C</p>
+            <p style={{color:"white"}}>Minimum temperature fell upto {minTemp}°C</p>
         </div>
-        
     )
 }
 

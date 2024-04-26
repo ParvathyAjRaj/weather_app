@@ -1,0 +1,20 @@
+.hourlyForecastContainer{
+    background-color: white;
+    padding-left: 1.5rem;
+    padding-top:0.1rem;
+    border-radius:0.5rem;
+    padding-right: 1rem;
+    margin-bottom: 1rem;
+}
+
+.eachHour{
+    width: 5rem;
+    text-align: center;
+}
+
+@media (min-width:500px){
+    .hourlyForecastContainer{
+        width:max-content;
+        padding-right: 2rem;
+    }
+}

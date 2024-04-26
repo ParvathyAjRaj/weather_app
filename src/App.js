@@ -3,6 +3,8 @@ import './App.css';
 import axios from 'axios';
 import Header from './Header/Header';
 import Content from './Content/Content';
+import NextDaysForecast from './components/NextDaysForecast/NextDaysForecast';
+import HourlyForecast from './components/HourlyForecast/HourlyForecast';
 
 function App() {
   const api_key = process.env.REACT_APP_API_KEY;
@@ -21,6 +23,7 @@ function App() {
   const [minTemp,setMinTemp] = useState(0);
   const [isMoonUp,setIsMoonUp] = useState(false);
   const [isSunUp,setIsSunUp] = useState(false);
+  const [nextDaysForecast,setNextDaysForecast] = useState([]);
 
   useEffect(()=>{
       // If the location access is denied by user
@@ -43,13 +46,13 @@ function App() {
             const locationConditionIcon = response.data.current.condition.icon; 
             const maximumTempinC = response.data.forecast.forecastday[0].day.maxtemp_c;
             const minimumTempinC = response.data.forecast.forecastday[0].day.mintemp_c;
+            const forecastforThreeDays = response.data.forecast.forecastday;
 
             if(response.data.forecast.forecastday[0].astro.is_moon_up === 1){
               setIsMoonUp(true);
             }else if(response.data.forecast.forecastday[0].astro.is_sun_up === 1){
               setIsSunUp(true);
             }
-
 
             setLocationName(response.data.location.name);
             setLocationRegion(response.data.location.region);
@@ -60,6 +63,10 @@ function App() {
             setTemperature(response.data.current.temp_c);
             setMaxTemp(maximumTempinC);
             setMinTemp(minimumTempinC);
+
+            const prevForecast = nextDaysForecast;
+            prevForecast.push(forecastforThreeDays);
+            setNextDaysForecast(prevForecast);
 
           }
           getWeatherDetails();
@@ -90,7 +97,9 @@ function App() {
         minTemp={minTemp}
         isMoonUp={isMoonUp}
         isSunUp={isSunUp}
-        />  
+      />  
+      <HourlyForecast nextDaysForecast={nextDaysForecast}/>
+      <NextDaysForecast nextDaysForecast={nextDaysForecast}/>
     </div>
   );
 }
