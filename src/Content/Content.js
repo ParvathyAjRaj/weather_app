@@ -2,7 +2,8 @@ import React from "react";
 import "./Content.css";
 import {EnvironmentFilled,BellOutlined,SaveOutlined} from '@ant-design/icons'
 
-function Content({locationName , locationRegion , localTime , locationCondition , temperature}){
+function Content(
+    {locationName , locationRegion , localTime , locationCondition , temperature , maxTemp , minTemp , isMoonUp , isSunUp}){
     const [localDate,localTimeDetails] = localTime.split(" ");
     const [yyyy,mm,dd] = localDate.split("-");
     let month;
@@ -56,10 +57,18 @@ function Content({locationName , locationRegion , localTime , locationCondition 
             <div className="temperatureContainer">
                 <span className="temperature">{temperature}</span>
                 <span className="degree">°C</span>
-                <p className="tempRange"> ↑ 17°C ↓ 5°C</p>
+                <p className="tempRange"
+                    style={ isMoonUp ? 
+                        {backgroundColor:"#7a7adb", backgroundImage:"linear-gradient(315deg, #7a7adb 0%, #170e13 74%)"}
+                        :
+                        isSunUp ? 
+                        {backgroundColor:"#182b3a", backgroundImage:"linear-gradient(315deg, #182b3a 0%, #20a4f3 74%)"}
+                        :
+                        null}
+                > ↑ {maxTemp}°C ↓ {minTemp}°C</p>
             </div>
-            <h2>{locationCondition.text}</h2>
-            <img src={locationCondition.icon}></img>
+            <p style={{color:"white"}}>{locationCondition.text}</p>
+            
         </div>
         
     )

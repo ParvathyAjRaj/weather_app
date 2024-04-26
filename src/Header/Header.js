@@ -4,7 +4,7 @@ import "./Header.css";
 import Rain from "../components/Rain/Rain";
 import { useState } from "react";
 
-function Header({uvValue , humidityValue}){
+function Header({uvValue , humidityValue , locationCondition}){
     const [isDetailsVisible,setIsDetailsVisible] = useState(true);
 
     function handleClickButton(){
@@ -13,19 +13,27 @@ function Header({uvValue , humidityValue}){
     }
 
     return(
-        <div className="headerCard">
-            {isDetailsVisible ? 
-            <>
-                <UV uvValue={uvValue}/>
-                <Rain humidityValue={humidityValue}/>
-                <button onClick={handleClickButton}>
-                    <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
-                </button>
-            </> : 
-            <button onClick={handleClickButton}>
-                <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
-            </button>}            
+        <div className="header">
+            <img className="conditionIcon" src={locationCondition.icon}></img>
+            <div className="headerCard">
+                {isDetailsVisible ? 
+                <>
+                
+                    <UV uvValue={uvValue}/>
+                    <Rain humidityValue={humidityValue}/>
+                    <button onClick={handleClickButton}>
+                        <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
+                    </button>
+                </> : 
+                <>
+                    <button onClick={handleClickButton} style={{marginTop:25}}>
+                        <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
+                    </button>
+                </>
+                }            
+            </div>
         </div>
+        
     );
         
         
