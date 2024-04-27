@@ -10,6 +10,7 @@ import Bargraph from './components/Bargraph/Bargraph';
 
 function App() {
   const api_key = process.env.REACT_APP_API_KEY;
+  console.log(api_key);
 
   const forecast_base_url = `http://api.weatherapi.com/v1/forecast.json?key=${api_key}`;
   const days = 5;
