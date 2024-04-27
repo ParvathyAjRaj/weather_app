@@ -1,5 +1,6 @@
 import React from "react";
 import "./HourlyForecast.css";
+import Bargraph from "../Bargraph/Bargraph";
 
 function HourlyForecast({nextDaysForecast}){
     return(
@@ -36,6 +37,7 @@ function HourlyForecast({nextDaysForecast}){
                     </div>
                 )
             })}
+            <Bargraph  nextDaysForecast={nextDaysForecast}/>
         </div>
     )
 }

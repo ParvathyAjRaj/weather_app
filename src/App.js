@@ -6,6 +6,7 @@ import Content from './Content/Content';
 import NextDaysForecast from './components/NextDaysForecast/NextDaysForecast';
 import HourlyForecast from './components/HourlyForecast/HourlyForecast';
 import {Spin} from "antd";
+import Bargraph from './components/Bargraph/Bargraph';
 
 function App() {
   const api_key = process.env.REACT_APP_API_KEY;
@@ -129,6 +130,7 @@ function App() {
               LocationWeatherDetails={LocationWeatherDetails}
             />  
             <HourlyForecast nextDaysForecast={nextDaysForecast}/>
+            {/* <Bargraph  nextDaysForecast={nextDaysForecast}/> */}
             <NextDaysForecast nextDaysForecast={nextDaysForecast}/>
           </>
           :
