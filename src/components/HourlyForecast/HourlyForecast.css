@@ -10,6 +10,7 @@
 .eachHour{
     width: 5rem;
     text-align: center;
+    padding-bottom: 1rem;
 }
 
 @media (min-width:500px){
