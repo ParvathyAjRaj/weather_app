@@ -3,6 +3,7 @@ import UV from "../components/UV/UV";
 import "./Header.css";
 import Rain from "../components/Rain/Rain";
 import { useState } from "react";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 
 function Header({uvValue , humidityValue , locationCondition}){
     const [isDetailsVisible,setIsDetailsVisible] = useState(true);
@@ -20,14 +21,24 @@ function Header({uvValue , humidityValue , locationCondition}){
                 <>
                     <UV uvValue={uvValue}/>
                     <Rain humidityValue={humidityValue}/>
-                    <button onClick={handleClickButton}>
+                    {/* <button onClick={handleClickButton}>
                         <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
-                    </button>
+                    </button> */}
+                    <div style={{backgroundColor:'skyblue',opacity:0.5,borderRadius:10,height:90,marginTop:3,width:30,marginRight:3}}>
+                        <RightOutlined 
+                            style={{color:'white',display:'flex',flexDirection:"column",justifyContent:'center',marginTop:35}}
+                            onClick={handleClickButton}
+                            />
+                    </div>
+                    
                 </> : 
                 <>
-                    <button onClick={handleClickButton} style={{marginTop:25,marginLeft:150}}>
-                        <img src="assets/side arrow button.png" style={{width:20 , backgroundColor:"skyblue"}}></img>
-                    </button>
+                    <div style={{backgroundColor:'skyblue',opacity:0.5,borderRadius:10,height:90,marginTop:3,width:30,marginRight:3,marginLeft:145}}>
+                        <LeftOutlined 
+                            style={{color:'white',display:'flex',flexDirection:"column",justifyContent:'center',marginTop:35}}
+                            onClick={handleClickButton}
+                            />
+                    </div>
                 </>
                 }            
             </div>

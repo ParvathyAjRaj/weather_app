@@ -78,7 +78,7 @@ function Content(
                 </>  
                 : 
                 <>
-                    <p className="locationNameAndRegion">{locationName},{locationRegion}</p>
+                    <p className="locationNameAndRegion">{locationName} , {locationRegion}</p>
                     <EditOutlined className="notification" onClick={handleEditLocation}/>
                 </>
                 }

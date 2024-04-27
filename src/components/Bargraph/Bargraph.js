@@ -35,7 +35,7 @@ ChartJS.register(
         const dataSource = {
             labels,
             datasets:[
-                {label:'Weather graph', 
+                {label:'Temperature(°C)', 
                 data : data , 
                 backgroundColor :  '#2234ae',
                 backgroundImage: 'linear-gradient(315deg, #2234ae 0%, #191714 74%)'
@@ -53,7 +53,7 @@ ChartJS.register(
           },
           title: {
             display: true,
-            text: 'Weather Graph',
+            text: 'Temperature Graph',
           },
         },
         scales: {
@@ -66,7 +66,7 @@ ChartJS.register(
 
       return(
         <Card style={{width:290,height:200,marginBottom:20}}>
-            <Bar options={options} data={weatherData} style={{paddingRight:10,paddingTop:10}}></Bar>
+            <Bar options={options} data={weatherData} style={{paddingRight:30,paddingTop:10}}></Bar>
         </Card>
     )
 }
