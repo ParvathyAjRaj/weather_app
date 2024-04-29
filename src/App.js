@@ -14,7 +14,7 @@ function App() {
   const forecast_base_url = `https://api.weatherapi.com/v1/forecast.json?key=${api_key}`;
   const days = 5;
 
-  const [locationName,setLocationName] = useState("");
+  const [locationName,setLocationName] = useState("London");
   const [locationRegion,setLocationRegion] = useState("");
   const [localTime,setLocalTime] = useState("");
   const [locationCondition,setLocationCondition] = useState({text:"",icon:""});
@@ -27,14 +27,10 @@ function App() {
   const [isSunUp,setIsSunUp] = useState(true);
   const [nextDaysForecast,setNextDaysForecast] = useState([]);
   const [loading,setLoading] = useState(false);
+  const [isUserLocationAllowed,setIsUserLocationAllowed] = useState(false);
 
   useEffect(()=>{
-      // If the location access is denied by user
-      if (!navigator.geolocation) {
-        console.log('Geolocation is not supported by your browser');
-        return;
-      }
-    
+         
       // If location access is accepted by user
       navigator.geolocation.getCurrentPosition(
         (position)=>{
@@ -43,31 +39,32 @@ function App() {
 
           async function getDefaultWeatherDetails(){
             setLoading(true);
+            setIsUserLocationAllowed(true);
             const response = await axios.get(`${forecast_base_url}&q=${lat},${lon}&days=${days}&aqi=no&alerts=no`);
             console.log(response.data);
             setLoading(false);
             LocationWeatherDetails(response);
             }
-
-            async function getNewLocationWeatherDetails(){
-                      console.log("New"+locationName);
-                      setLoading(true);
-                      const response = await axios.get(`${forecast_base_url}&q=${locationName}&days=3&aqi=no&alerts=no`);
-                      console.log(response.data);
-                      setLoading(false);
-                      LocationWeatherDetails(response);
-                  }
-                 
-            if(locationName === ""){
-              getDefaultWeatherDetails();
-            } else{
-              getNewLocationWeatherDetails();
-            }
+            getDefaultWeatherDetails();
           
         },
         (error)=>{
-          console.log(error)
+          if(error.message === "User denied Geolocation"){
+            console.log("yes user denied");
+            setLoading(true);
+
+            getNewLocationWeatherDetails();
+          }
           });
+
+          async function getNewLocationWeatherDetails(){
+            console.log("New"+locationName);
+            setLoading(true);
+            const response = await axios.get(`${forecast_base_url}&q=${locationName}&days=3&aqi=no&alerts=no`);
+            console.log(response.data);
+            setLoading(false);
+            LocationWeatherDetails(response);
+        }
     }
   ,[locationName])
 
@@ -116,6 +113,7 @@ function App() {
         {!loading 
           ? 
           <>
+            {!isUserLocationAllowed ? <h3 style={{color:"white"}}>Please allow your location access for better performace.</h3> : null}
             <Header uvValue={uvValue} humidityValue={humidityValue} locationCondition={locationCondition}/>
             <Content 
               setLocationName={setLocationName}
