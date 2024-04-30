@@ -14,7 +14,7 @@ function App() {
   const forecast_base_url = `https://api.weatherapi.com/v1/forecast.json?key=${api_key}`;
   const days = 5;
 
-  const [locationName,setLocationName] = useState("London");
+  const [locationName,setLocationName] = useState("");
   const [locationRegion,setLocationRegion] = useState("");
   const [localTime,setLocalTime] = useState("");
   const [locationCondition,setLocationCondition] = useState({text:"",icon:""});
@@ -45,17 +45,32 @@ function App() {
             setLoading(false);
             LocationWeatherDetails(response);
             }
-            getDefaultWeatherDetails();
+            if(locationName === ""){
+              getDefaultWeatherDetails();
+            }else{
+              getNewLocationWeatherDetails();
+            }
           
         },
         (error)=>{
           if(error.message === "User denied Geolocation"){
             console.log("yes user denied");
-            setLoading(true);
-
-            getNewLocationWeatherDetails();
+            setLoading(true); 
+            if(locationName === ""){
+              getLondonWeatherDetails();
+            }else{
+              getNewLocationWeatherDetails();
+            }
           }
           });
+
+          async function getLondonWeatherDetails(){
+            setLoading(true);
+            const response = await axios.get(`${forecast_base_url}&q=London&days=3&aqi=no&alerts=no`);
+            console.log(response.data);
+            setLoading(false);
+            LocationWeatherDetails(response);
+          }
 
           async function getNewLocationWeatherDetails(){
             console.log("New"+locationName);
