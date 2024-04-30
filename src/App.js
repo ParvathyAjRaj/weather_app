@@ -48,7 +48,8 @@ function App() {
             }
             if(locationName === ""){
               getDefaultWeatherDetails();
-            }else{
+            }
+            else{
               getNewLocationWeatherDetails();
             }
           
@@ -87,7 +88,6 @@ function App() {
   
 
   function LocationWeatherDetails(response){
-    console.log("entered the locationdetails function");
     const locationConditionText = response.data.current.condition.text;
     const locationConditionIcon = response.data.current.condition.icon; 
     const maximumTempinC = response.data.forecast.forecastday[0].day.maxtemp_c;

@@ -2,7 +2,7 @@ import React, { useState , useRef, useEffect} from "react";
 import "./Content.css";
 import {EnvironmentFilled,BellOutlined,SaveOutlined,EditOutlined} from '@ant-design/icons';
 import axios from 'axios';
-import { Select } from "antd";
+import { AutoComplete } from "antd";
 
 function Content(
     {setLocationName , locationName , locationRegion , localTime , temperature , maxTemp , minTemp , isMoonUp , isSunUp , suggestion_base_url}){
@@ -12,6 +12,7 @@ function Content(
     const newLocationRef = useRef();
     const [isNotificationOn,setIsNotificationOn] = useState(false);
     const [suggestionList,setSuggestionList] = useState([]);
+    const [userInputLocation,setUserInputLocation] = useState("");
 
     let month;
     switch(mm){
@@ -58,26 +59,22 @@ function Content(
         setLocationEditable(true);
     }
 
-    function handleSaveLocation(newLocationRef){
-        console.log("Save button clicked");
-        setLocationEditable(false);
-        setLocationName(newLocationRef.current.value);
-    }
-
     function handleNotification(){
         setIsNotificationOn((prev) => !prev);
     }
 
     async function handleSuggestions(e){
         console.log(e.target.value);
+        setUserInputLocation(e.target.value);
         if(e.target.value !== ""){
             const response = await axios.get(`${suggestion_base_url}`,{params:{q:e.target.value}});
             const len = response.data.length;
+            console.log(response.data);
             if(len > 0){
                 const newList = [];
                 response.data.map((eachSuggestions,index) => {
-                    
-                    newList.push(eachSuggestions.name);
+                    let exactLocationName = eachSuggestions.name + "," + eachSuggestions.region;
+                    newList.push(exactLocationName);
                 })
                 setSuggestionList(newList);   
             }
@@ -87,7 +84,10 @@ function Content(
     }
 
     function handleSuggestionClick(selectedLocation){
-        console.log(selectedLocation);
+        setUserInputLocation(selectedLocation);
+        setSuggestionList([]);
+        setLocationName(selectedLocation.split(",")[0]);
+        setLocationEditable(false);
     }
 
     return(
@@ -96,19 +96,21 @@ function Content(
                 <EnvironmentFilled style={{color:"white", paddingBottom:5}}/> 
                 {isLocationEditable 
                 ? 
-                <>
-                    <select>
-                        {suggestionList.map((eachSuggestion,index) => {
-                            return(
-                                <option key={index} className="suggestionItem" value={eachSuggestion} onClick={() => handleSuggestionClick(eachSuggestion)}>
-                                    {eachSuggestion}
-                                </option>
-                            )
-                        })}
-                    </select>
-                    <input/>
-                    {/* <input id="locationEntryId" className="locationEntry" ref={newLocationRef} onChange={handleSuggestions}></input> */}
-                    <SaveOutlined className="notification" onClick={() => handleSaveLocation(newLocationRef)}/>
+                <>  
+                    <input value={userInputLocation} onChange={handleSuggestions} placeholder="enter the location"></input>
+                    {suggestionList.map((eachSuggestion,index) => {
+                        return(
+                            <div 
+                                key={index} 
+                                value={eachSuggestion} 
+                                onClick={() => handleSuggestionClick(eachSuggestion)}
+                                className="suggestions"
+                            >
+                            {eachSuggestion}
+                            </div>
+                        )
+                    })}
+                    
                 </>  
                 : 
                 <>
