@@ -2,14 +2,16 @@ import React, { useState , useRef, useEffect} from "react";
 import "./Content.css";
 import {EnvironmentFilled,BellOutlined,SaveOutlined,EditOutlined} from '@ant-design/icons';
 import axios from 'axios';
+import { Select } from "antd";
 
 function Content(
-    {setLocationName , locationName , locationRegion , localTime , temperature , maxTemp , minTemp , isMoonUp , isSunUp}){
+    {setLocationName , locationName , locationRegion , localTime , temperature , maxTemp , minTemp , isMoonUp , isSunUp , suggestion_base_url}){
     const [localDate,localTimeDetails] = localTime.split(" ");
     const [yyyy,mm,dd] = localDate.split("-");
     const [isLocationEditable,setLocationEditable] = useState(false);
     const newLocationRef = useRef();
     const [isNotificationOn,setIsNotificationOn] = useState(false);
+    const [suggestionList,setSuggestionList] = useState([]);
 
     let month;
     switch(mm){
@@ -51,7 +53,7 @@ function Content(
             break;
     }
 
-    function handleEditLocation(newLocationRef){
+    function handleEditLocation(){
         console.log("Edit button clicked");
         setLocationEditable(true);
     }
@@ -66,6 +68,28 @@ function Content(
         setIsNotificationOn((prev) => !prev);
     }
 
+    async function handleSuggestions(e){
+        console.log(e.target.value);
+        if(e.target.value !== ""){
+            const response = await axios.get(`${suggestion_base_url}`,{params:{q:e.target.value}});
+            const len = response.data.length;
+            if(len > 0){
+                const newList = [];
+                response.data.map((eachSuggestions,index) => {
+                    
+                    newList.push(eachSuggestions.name);
+                })
+                setSuggestionList(newList);   
+            }
+        }
+        console.log(suggestionList);
+        
+    }
+
+    function handleSuggestionClick(selectedLocation){
+        console.log(selectedLocation);
+    }
+
     return(
         <div>
             <div className="locationDetails">
@@ -73,7 +97,17 @@ function Content(
                 {isLocationEditable 
                 ? 
                 <>
-                    <input id="locationEntryId" className="locationEntry" ref={newLocationRef}></input>
+                    <select>
+                        {suggestionList.map((eachSuggestion,index) => {
+                            return(
+                                <option key={index} className="suggestionItem" value={eachSuggestion} onClick={() => handleSuggestionClick(eachSuggestion)}>
+                                    {eachSuggestion}
+                                </option>
+                            )
+                        })}
+                    </select>
+                    <input/>
+                    {/* <input id="locationEntryId" className="locationEntry" ref={newLocationRef} onChange={handleSuggestions}></input> */}
                     <SaveOutlined className="notification" onClick={() => handleSaveLocation(newLocationRef)}/>
                 </>  
                 : 

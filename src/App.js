@@ -13,6 +13,7 @@ function App() {
 
   const forecast_base_url = `https://api.weatherapi.com/v1/forecast.json?key=${api_key}`;
   const days = 5;
+  const suggestion_base_url = `https://api.weatherapi.com/v1/search.json?key=${api_key}`;
 
   const [locationName,setLocationName] = useState("");
   const [locationRegion,setLocationRegion] = useState("");
@@ -141,6 +142,7 @@ function App() {
               forecast_base_url={forecast_base_url}
               days={days}
               LocationWeatherDetails={LocationWeatherDetails}
+              suggestion_base_url = {suggestion_base_url}
             />  
             <HourlyForecast nextDaysForecast={nextDaysForecast}/>
             {/* <Bargraph  nextDaysForecast={nextDaysForecast}/> */}
